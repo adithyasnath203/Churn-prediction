@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="container">
+        {% if predicted %}
+        {% if is_churn == 1 %}
+        <div class="wow" data-wow-delay="0.1s">
+            <h1 class="text-center mb-5">Customer is likely to churn</h1>
+            <a href="{% url 'send_email' %}?email={{ email }}">Send email</a>
+        </div>
+        {% else %}
+        <div class="wow" data-wow-delay="0.1s">
+            <h1 class="text-center mb-5">Customer will not churn!</h1>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="wow" data-wow-delay="0.1s">
+            <h1 class="text-center mb-5">Enter the User details to find Churn or Upload file</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="wow" data-wow-delay="0.3s">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input required type="email" class="form-control" id="email" name="email"
+                                        placeholder="email">
+                                    <label for="email">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input required type="number" class="form-control" id="tenure" name="tenure"
+                                        placeholder="tenure">
+                                    <label for="tenure">Tenure</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="monthlycharges"
+                                        name="monthlycharges" placeholder="monthlycharges">
+                                    <label for="monthlycharges">Monthly Charges</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="totalcharges" name="totalcharges"
+                                        placeholder="totalcharges">
+                                    <label for="totalcharges">Total Charges</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Gender" required name="gender" id="gender"
+                                        style="background-color: white;">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <label for="gender">Gender</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Senior Citizen" required
+                                        name="seniorcitizen" id="seniorcitizen" style="background-color: white;">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                    <label for="seniorcitizen">Senior Citizen</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Partner" required name="partner"
+                                        id="partner" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="partner">Partner</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Dependents" required name="dependents"
+                                        id="dependents" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="dependents">Dependents</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Phone Service" required
+                                        name="phoneservice" id="phoneservice" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="phoneservice">Phone Service</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Multiple Lines" required
+                                        name="multiplelines" id="multiplelines" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="multiplelines">Multiple Lines</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Internet Service" required
+                                        name="internetservice" id="internetservice" style="background-color: white;">
+                                        <option value="dsl">DSL</option>
+                                        <option value="fiber_optic">Fiber Optic</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="internetservice">Internet Service</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Online Security" required
+                                        name="onlinesecurity" id="onlinesecurity" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="onlinesecurity">Online Security</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Online Backup" required
+                                        name="onlinebackup" id="onlinebackup" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="onlinebackup">Online Backup</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Device Protection" required
+                                        name="deviceprotection" id="deviceprotection"
+                                        style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="deviceprotection">Device Protection</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Tech support" required name="techsupport"
+                                        id="techsupport" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="techsupport">Tech Support</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Streaming TV" required name="streamingtv"
+                                        id="streamingtv" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="streamingtv">Streaming TV</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Streaming Movies" required
+                                        name="streamingmovies" id="streamingmovies" style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="streamingmovies">Streaming Movies</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Contract" required name="contract"
+                                        id="contract" style="background-color: white;">
+                                        <option value="month-to-month">Month to month</option>
+                                        <option value="one_year">One year</option>
+                                        <option value="two_year">Two year</option>
+                                    </select>
+                                    <label for="contract">Contract</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Paperless Billing" required
+                                        name="paperlessbilling" id="paperlessbilling"
+                                        style="background-color: white;">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <label for="paperlessbilling">Paperless Billing</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" placeholder="Payment Method" required
+                                        name="paymentmethod" id="paymentmethod"
+                                        style="background-color: white;">
+                                        <option value="bank_transfer_(automatic)">Bank Transfer</option>
+                                        <option value="credit_card_(automatic)">Credit Card</option>
+                                        <option value="electronic_check">Electronic Check</option>
+                                        <option value="mailed_check">Mailed Check</option>
+                                    </select>
+                                    <label for="paymentmethod">Payment Method</label>
+                                </div>
+                            </div>
+                            <div>
+                                {% if error %}
+                                <p class="text-danger">{{ error}}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Predict</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

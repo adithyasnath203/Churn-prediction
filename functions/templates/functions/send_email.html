@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="container">
+        {% if sent %}
+        <h1 class="text-center mb-5">Email Send</h1>
+        <a href="{% url 'send_email' %}">Send again</a>
+        {% else %}
+        <div class="wow" data-wow-delay="0.1s">
+            <h1 class="text-center mb-5">Enter the email of the user to send promotional email</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="wow" data-wow-delay="0.3s">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input required type="email" class="form-control" id="email" name="email"
+                                        placeholder="email" value="{{ request.GET.email }}">
+                                    <label for="email">Email</label>
+                                </div>
+                            </div>
+                            <div>
+                                {% if error %}
+                                <p class="text-danger">{{ error}}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

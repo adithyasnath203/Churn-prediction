@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="container">
+        {% if churning_customers %}
+        <h1>Churning Customers</h1>
+        <div class="row g-4 portfolio-container">
+            {% for customer in churning_customers %}
+            <div class="col-lg-4 col-md-6 portfolio-item first wow" data-wow-delay="0.1s">
+                <div class="rounded overflow-hidden">
+                    <div class="bg-light p-4">
+                        <p class="text-primary fw-medium mb-2">Email: {{ customer.email }}</p>
+                        <h5 class="lh-base mb-0">Gender: {{customer.gender}}</a>
+                        <h5 class="lh-base mb-0">SeniorCitizen: {{customer.seniorcitizen}}</a>
+                        <h5 class="lh-base mb-0">Partner: {{customer.partner}}</a>
+                        <h5 class="lh-base mb-0">Dependents: {{customer.dependents}}</a>
+                        <h5 class="lh-base mb-0">Tenure: {{customer.tenure}}</a>
+                        <h5 class="lh-base mb-0">Phone Service: {{customer.phoneservice}}</a>
+                        <h5 class="lh-base mb-0">Gender: {{customer.gender}}</a>
+                        <h5 class="lh-base mb-0">Multiple Lines: {{customer.multiplelines}}</a>
+                        <h5 class="lh-base mb-0">Internet Service: {{customer.internetservice}}</a>
+                        <h5 class="lh-base mb-0">Online Security: {{customer.onlinesecurity}}</a>
+                        <h5 class="lh-base mb-0">Online Backup: {{customer.onlinebackup}}</a>
+                        <h5 class="lh-base mb-0">Device Protection: {{customer.deviceprotection}}</a>
+                        <h5 class="lh-base mb-0">Tech Support: {{customer.techsupport}}</a>
+                        <h5 class="lh-base mb-0">Streaming TV: {{customer.streamingtv}}</a>
+                        <h5 class="lh-base mb-0">Streaming Movies: {{customer.streamingmovies}}</a>
+                        <h5 class="lh-base mb-0">Contract: {{customer.contract}}</a>
+                        <h5 class="lh-base mb-0">Paperless Billing: {{customer.paperlessbilling}}</a>
+                        <h5 class="lh-base mb-0">Payment Method: {{customer.paymentmethod}}</a>
+                        <h5 class="lh-base mb-0">Monthly Charges: {{customer.monthlycharges}}</a>
+                        <h5 class="lh-base mb-0">Total Charges: {{customer.totalcharges}}</a>
+                        <h5><a href="{% url 'send_email' %}?email={{ customer.email }}">Send email</a></h5>
+                    </div>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+        <form action="{% url 'bulk_send' %}" method="post">
+            {% csrf_token %}
+            <div class="col-12">
+                <button class="btn btn-primary w-100 py-3" type="submit">Send mails to all chruning customers</button>
+            </div>
+        </form>
+        {% else %}
+        <div class="wow" data-wow-delay="0.1s">
+            <h1 class="text-center mb-5">Please select the csv file.</h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="wow" data-wow-delay="0.3s">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input required type="file" class="form-control" id="file" name="file"
+                                        placeholder="Select file">
+                                    <label for="file">Select a csv file</label>
+                                </div>
+                            </div>
+                            <div>
+                                {% if error %}
+                                <p class="text-danger">{{ error}}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
